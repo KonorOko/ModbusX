@@ -9,11 +9,13 @@ export type AddressLayout = "table" | "offset" | "grid";
 export interface Settings {
   theme: Theme;
   addressLayout: AddressLayout;
+  readOnly: boolean;
 }
 
 const defaultSettings: Settings = {
   theme: "light",
   addressLayout: "table",
+  readOnly: false,
 };
 
 let storeInstance: Store | null = null;
@@ -98,7 +100,7 @@ const useSettings = create<SettingsStore>((set) => ({
     value: Settings[keyof Settings],
   ) => {
     set((state) => ({ settings: { ...state.settings, [key]: value } }));
-    if (key === "theme") applyTheme(value);
+    if (key === "theme") applyTheme(value as Theme);
 
     await saveSettings({ [key]: value });
 
