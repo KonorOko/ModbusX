@@ -79,8 +79,8 @@ The project is divided into two main parts:
   <type>(<scope>): <description>
   ```
   Examples:
-  - `feat(ui): add new button component`
-  - `fix(modbus): resolve TCP connection timeout issue`
+  - `feat: add new button component`
+  - `fix: resolve TCP connection timeout issue`
 
 ### Branch Naming
 
