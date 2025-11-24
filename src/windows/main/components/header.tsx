@@ -1,3 +1,4 @@
+import { CustomToolTip } from "@/components/custom-tooltip";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useTabs } from "@/hooks/useTabs";
 import { cn } from "@/lib/utils";
@@ -109,13 +110,16 @@ export function Header() {
         <div className="box-border flex size-8 items-center justify-center border-l py-0.5">
           {(currentTab === undefined ||
             currentTab.polling.isActive === false) && (
-            <span className="bg-secondary size-3 rounded-full shadow"></span>
+            <div className="bg-secondary size-3 rounded-full shadow"></div>
           )}
-          {currentTab?.polling.isActive === true && (
-            <span className="size-3 rounded-full bg-green-500 shadow"></span>
-          )}
+          {currentTab?.polling.isActive === true &&
+            currentTab.error === null && (
+              <div className="size-3 rounded-full bg-green-500 shadow"></div>
+            )}
           {currentTab?.error && (
-            <span className="size-3 rounded-full border bg-red-500 shadow"></span>
+            <CustomToolTip text={currentTab.error}>
+              <div className="size-3 cursor-pointer rounded-full border bg-red-500 shadow"></div>
+            </CustomToolTip>
           )}
         </div>
       </div>
