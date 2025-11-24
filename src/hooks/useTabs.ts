@@ -14,6 +14,8 @@ interface ModbusTabsState {
 
   updateModbusConfig: (tabId: number, partial: Partial<ModbusConfig>) => void;
   setPollingInterval: (tabId: number, ms: number) => void;
+
+  setTabError: (tabId: number, error: string | null) => void;
 }
 
 const initialTabState: Omit<TabState, "tabId"> = {
@@ -95,6 +97,18 @@ export const useTabs = create<ModbusTabsState>((set, get) => ({
         [tabId]: {
           ...prev.tabs[tabId],
           polling: { ...prev.tabs[tabId].polling, intervalMs: ms },
+        },
+      },
+    }));
+  },
+  setTabError: (tabId: number, error: string | null) => {
+    set((prev) => ({
+      ...prev,
+      tabs: {
+        ...prev.tabs,
+        [tabId]: {
+          ...prev.tabs[tabId],
+          error,
         },
       },
     }));

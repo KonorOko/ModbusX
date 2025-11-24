@@ -7,6 +7,7 @@ import { error } from "@tauri-apps/plugin-log";
 export function useModbusPooling(tabId: number) {
   const setValues = useTabs((state) => state.setValues);
   const tab = useTabs((state) => state.tabs[tabId]);
+  const setTabError = useTabs((state) => state.setTabError);
 
   const count = tab?.modbusConfig?.count || 0;
   const startAddress = tab?.modbusConfig?.startAddress || 0;
@@ -41,6 +42,7 @@ export function useModbusPooling(tabId: number) {
         });
         setValues(tabId, response);
       } catch (e) {
+        setTabError(tabId, String(e));
         error("Modbus error in tab " + tabId + ": " + e);
       }
     };
