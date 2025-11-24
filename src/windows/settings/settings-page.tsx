@@ -82,7 +82,12 @@ export function SettingsPage() {
               Enable read-only mode to prevent editing (secure mode).
             </SettingsDescription>
           </SettingsContent>
-          <Switch />
+          <Switch
+            checked={settings.readOnly}
+            onCheckedChange={(value) =>
+              handleUpdate("readOnly", Boolean(value))
+            }
+          />
         </SettingsItem>
       </SettingsSection>
       <SettingsSection className="p-4">
