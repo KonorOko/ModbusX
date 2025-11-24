@@ -5,12 +5,13 @@ import { ModbusGrid } from "./modbus-grid";
 import { ModbusTable } from "./modbus-table";
 
 export function DataViewContent({ tabId }: { tabId: number }) {
-  const { addressLayout } = useSettings((state) => state.settings);
+  const { addressLayout, readOnly } = useSettings((state) => state.settings);
   const modbusConfig = useTabs((state) => state.tabs[tabId].modbusConfig);
 
-  const readOnly =
+  const readOnlyC =
     modbusConfig.registerType === "discrete" ||
-    modbusConfig.registerType === "input"
+    modbusConfig.registerType === "input" ||
+    readOnly
       ? true
       : false;
 
@@ -18,10 +19,10 @@ export function DataViewContent({ tabId }: { tabId: number }) {
   return (
     <div className="p-4">
       {addressLayout === "grid" && (
-        <ModbusGrid tabId={tabId} readOnly={readOnly} />
+        <ModbusGrid tabId={tabId} readOnly={readOnlyC} />
       )}
       {addressLayout === "table" && (
-        <ModbusTable tabId={tabId} readOnly={readOnly} />
+        <ModbusTable tabId={tabId} readOnly={readOnlyC} />
       )}
     </div>
   );
